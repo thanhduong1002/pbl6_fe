@@ -12,8 +12,7 @@ import {
   FaCog,
   FaCommentDots,
   FaHome,
-  FaKey,
-  FaUserCircle,
+  FaShoppingCart,
   FaUserLock,
 } from 'react-icons/fa';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -23,7 +22,7 @@ const Navbar = () => {
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
   return (
-    <VStack w="20vw" h="100vh" bgGradient="linear(to-b, white, blue.500)">
+    <VStack w="20vw" h="100vh" bgGradient="linear(to-b, white, blue.500)" position='fixed'>
       <VStack w="100%" h="100%">
         <HStack paddingBottom="5vh">
           <FaUserLock size="50" color="#3399FF" />
@@ -92,6 +91,17 @@ const Navbar = () => {
                 color="white"
               >
                 <NavLink to="/settings">Settings</NavLink>
+              </Button>
+            </HStack>
+            <HStack w="100%">
+              <FaShoppingCart size="20px" color="white" />
+              <Button
+                colorScheme="teal"
+                variant="ghost"
+                fontSize="20px"
+                color="white"
+              >
+                <NavLink to="/cart">Cart</NavLink>
               </Button>
             </HStack>
           </VStack>

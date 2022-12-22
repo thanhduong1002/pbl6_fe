@@ -17,6 +17,7 @@ const Settings = () => {
   return (
     <HStack>
       <Navbar />
+      <Stack w="20vw" h="100vh" />
       <Stack w="80vw" h="100vh">
         <Stack w="95%" h="5%" margin={'20px'}>
           <Text color="black" fontSize="32" fontWeight="700">

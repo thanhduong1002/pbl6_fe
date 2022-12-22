@@ -21,6 +21,47 @@ const SubmitOTP = () => {
   const [OTP4, setOTP4] = useState('');
   const navigate = useNavigate();
   const toast = useToast();
+  
+  const sendOTP = () => {
+    axios({
+      baseURL: 'http://localhost:8000/sendOTP',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        email: localStorage.getItem('email') + '@gmail.com',
+      }),
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  const resetOTP = () => {
+    axios({
+      baseURL: 'http://localhost:8000/resetOTP',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        email: localStorage.getItem('email') + '@gmail.com',
+      }),
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+  let reset = setTimeout(function () {
+    resetOTP();
+    setTimeout(sendOTP, 8000);
+  }, 25000);
   const handleSubmit = () => {
     axios({
       baseURL: 'http://localhost:8000/checkOTP',
@@ -35,6 +76,7 @@ const SubmitOTP = () => {
     })
       .then(res => {
         console.log(res.data);
+        clearTimeout(reset);
         res.data.status === 200
           ? navigate('/home')
           : toast({
@@ -51,6 +93,7 @@ const SubmitOTP = () => {
           isClosable: true,
         });
       });
+      
   };
   return (
     <VStack w="100vw" h="100vh" justify="center">
@@ -97,9 +140,16 @@ const SubmitOTP = () => {
           <Text>Submit</Text>
         </Button>
       </Stack>
-      <HStack w="20vw" h="7vh" justify='center'>
-        <FaChevronCircleLeft size='30'/>
-        <Link to="/"><Text fontSize='xl'>Back to login</Text></Link>
+      <HStack w="20vw" h="7vh" justify="center">
+        <FaChevronCircleLeft size="30" />
+        <Button
+          onClick={() => {
+            clearTimeout(reset);
+            navigate('/');
+          }}
+        >
+          <Text fontSize="xl">Back to login</Text>
+        </Button>
       </HStack>
     </VStack>
   );

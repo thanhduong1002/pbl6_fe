@@ -16,9 +16,7 @@ import { FaEnvelope, FaSignature } from 'react-icons/fa';
 
 const Profile = () => {
   const toast = useToast();
-  const [linkImg, setLinkImg] = useState(
-    'https://i.pinimg.com/564x/89/4f/4b/894f4b2f803a5618a3c02795b361baa6.jpg'
-  );
+  const [linkImg, setLinkImg] = useState(localStorage.getItem('linkAvt'));
   const [name, setName] = useState(localStorage.getItem('name'));
   const [email, setEmail] = useState(localStorage.getItem('email'));
   const handleSave = () => {
@@ -30,31 +28,34 @@ const Profile = () => {
       },
       data: JSON.stringify({
         email: email + '@gmail.com',
-        name : name,
-        linkAvt : linkImg
+        name: name,
+        linkAvt: linkImg,
       }),
     })
       .then(res => {
-        localStorage.setItem('name',res.data.message);
-        localStorage.setItem('linkAvt',res.data.internal_message);
-        res.status === 200 ? toast({
-          title: 'Updated successful',
-          status: 'success',
-          isClosable: true,
-        }) : toast({
-          title: 'Updated fail',
-          status: 'error',
-          isClosable: true,
-        })
-      }).catch(error => {
+        localStorage.setItem('name', res.data.message);
+        localStorage.setItem('linkAvt', res.data.internal_message);
+        res.status === 200
+          ? toast({
+              title: 'Updated successful',
+              status: 'success',
+              isClosable: true,
+            })
+          : toast({
+              title: 'Updated fail',
+              status: 'error',
+              isClosable: true,
+            });
+      })
+      .catch(error => {
         console.log(error);
         toast({
-            title: error.response.data.message,
-            status: 'error',
-            isClosable: true,
-          })
+          title: error.response.data.message,
+          status: 'error',
+          isClosable: true,
+        });
       });
-  }
+  };
   return (
     <Stack w="73vw">
       <HStack w="100%">
@@ -104,12 +105,12 @@ const Profile = () => {
         </Stack>
 
         <HStack w="70%">
-        <InputGroup>
+          <InputGroup>
             <InputLeftAddon children={<FaSignature />} />
             <Input
               placeholder="Enter your email"
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={e => setName(e.target.value)}
             />
           </InputGroup>
         </HStack>
@@ -126,9 +127,10 @@ const Profile = () => {
           <InputGroup>
             <InputLeftAddon children={<FaEnvelope />} />
             <Input
+              isReadOnly={true}
               placeholder="Enter your email"
               value={email}
-              onChange={(e)=>setEmail(e.target.value)}
+              onChange={e => setEmail(e.target.value)}
             />
             <InputRightAddon children="@gmail.com" />
           </InputGroup>

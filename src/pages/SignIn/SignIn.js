@@ -100,6 +100,38 @@ const SignIn = () => {
    var dateTime = date+' '+ time;
    console.log(dateTime);
   }
+  const handleGit = () => {
+    axios({
+      baseURL: 'http://localhost:8080/auth',
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: ''
+    })
+      .then(res => {
+        console.log(res.data);
+      }).catch(error => {
+        console.log(error);
+      });
+  }
+  const handleFacebook = () =>{
+    axios({
+      baseURL: 'http://localhost:3000/users/auth/facebook',
+      method: 'post',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: JSON.stringify({
+        "access_token": "EAAL0PZAlzZBMkBAGgtou0xNi6fZAW6dgrotRAp0TZBNFZA0qVvkPxOG3rxuGI09zFBgFso8qyxDqKGRdRDURsoBWR3qFBZArRNs1V6fKWhOFbjHZCEnMTEp9kWtK4PsSXhN9BoLVX1ZAZAAV6QYiZBynZA2n9hrPXOre3LVJeuOLgKzWKTUQMtEfuza"
+      })
+    })
+      .then(res => {
+        console.log(res.data);
+      }).catch(error => {
+        console.log(error);
+      });
+  }
   return (
     <Stack bgColor="#E7ECF4" w="100vw" h="100vh">
       <HStack w="100%" h="100%" justify="center">
@@ -199,6 +231,8 @@ const SignIn = () => {
           </HStack>
           <HStack w="65%" h="7%">
             <Login />
+            {/* <a href={'https://github.com/login/oauth/authorize?client_id=1375e8ef4bffeaec5aff'}>Google</a>
+            <Button onClick={handleFacebook}>Continue with Facebook</Button> */}
           </HStack>
           <HStack w="65%" h="20%" flexDirection="column-reverse">
             <Text>

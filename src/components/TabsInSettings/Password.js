@@ -24,6 +24,15 @@ const Password = () => {
   const [confirm, setConfirm] = useState('');
   const toast = useToast();
   const handleSave = () => {
+    pass.trim() === confirm.trim() === '' ? toast({
+      title: 'Please check the new password and confirm the password again !!!',
+      status: 'error',
+      isClosable: true,
+    }) : pass.trim() !== confirm.trim() ? toast({
+      title: 'The new password does not match !!!',
+      status: 'error',
+      isClosable: true,
+    }) :
     axios({
       baseURL: 'http://localhost:8000/updatePassword',
       method: 'post',
